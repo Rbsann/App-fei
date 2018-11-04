@@ -1,8 +1,11 @@
   import React , {Component} from 'react';
-  import { StyleSheet, View ,AppRegistry, TextInput,ScrollView,Button,Image,TouchableOpacity,TouchableWithoutFeedback } from 'react-native';
+  import { StyleSheet, View ,AppRegistry, TextInput,ScrollView,Button,Image,TouchableOpacity,TouchableWithoutFeedback ,Alert} from 'react-native';
   import { Container, Header, Content, Footer, FooterTab, Text } from 'native-base';
   import { createStackNavigator } from 'react-navigation'; // Version can be specified in package.json
   import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
+  import {Column as Col, Row} from 'react-native-flexbox-grid';
+
+  
 
    class HomeScreen extends React.Component {
 
@@ -10,7 +13,23 @@
     {
       alert("Image Clicked!!!");
     }
-
+    state = {
+      usuario: '',
+      senha: ''
+   }
+   handleUsuario = (text) => {
+      this.setState({ usuario: text })
+   }
+   handleSenha= (text) => {
+      this.setState({ senha: text })
+   }
+   _onPressLogin = () => {
+    if (this.state.usuario === '' && this.state.senha === ''){ 
+      this.props.navigation.navigate('StudentOptions');
+    }else{
+         alert('Email invalido ou senha invalida!');
+      }
+   }
   constructor(props){
       super(props);
   }
@@ -19,13 +38,12 @@
       return (
 
             <ScrollView style={styles.container}>
-                  <TextInput placeholder='Username'  style="width:100% !important"/>
-                  <TextInput placeholder='Password' style="width:100%" />
+                  <Image style={{width:200,height:200,marginBottom:100}} source={require('./assets/imgs/sum.png')} />
+                  <TextInput placeholder='Usuario' onChangeText = {this.handleUsuario}/>
+                  <TextInput placeholder='Senha' style={{marginBottom:30}} onChangeText = {this.handleSenha}/>
                   <Button
                       title="Login"
-                      onPress={() => 
-                      this.props.navigation.navigate('StudentOptions')
-                         }
+                      onPress={this._onPressLogin}
                     />
                 
 
@@ -37,26 +55,158 @@
   class StudentOptionsScreen extends React.Component {
     render(){
       return (
-        <ScrollView style={styles.container}>
 
-                  <Button title="Biologia"/>
-                  <Button title="Filosofia"/>
-                  <Button title="Fisica"/>
-                  <Button title="Geografia"/>
-                  <Button title="Historia"/>
-                  <Button title="Matematica" onPress={() => this.props.navigation.navigate("Agenda")}/>
-                  <Button title="Portugues"/>
-                  <Button title="Quimica"/>
-                  <Button title="Redacao"/>
+    <View style={styles.segundaTela}>        
+  <Row size={12}>
+    <Col sm={6} md={4} lg={3}>
+      <Image style={{width:50,height:50, marginBottom:20}} source={require('./assets/imgs/fermat.png')} />
+    </Col>
+    <Col sm={6} md={4} lg={3}>
+        <Text>Credito:R$20,00</Text>
+    </Col>
+  </Row> 
+  <Row size={12}>
+    <Text style={{marginBottom:20}}>  Aluno: Qual materia gostaria de estudar hoje </Text>
+  </Row> 
+  <Row size={12} style={{alignItems:"center",justifyContent:'center'}}>
+              <ScrollView style={styles.container}>
 
+             <View style={{marginBottom:5, width:200}}>
+                  <Button title="Biologia" onPress={() => {
+                  this.props.navigation.navigate('Teachers', {
+                    itemId: 1,
+                  });
+                }}/>
+                </View>
+                <View style={{marginBottom:5, width:200}}>
+                  <Button title="Filosofia" onPress={() => {
+                  this.props.navigation.navigate('Teachers', {
+                    itemId: 2,
+                  });
+                }}/>/>
+                </View>                  
+                <View style={{marginBottom:5, width:200}}>
+                  <Button title="Fisica" onPress={() => {
+                  this.props.navigation.navigate('Teachers', {
+                    itemId: 3
+                  });
+                }}/>/>
+                </View>                  
+                <View style={{marginBottom:5, width:200}}>
+                  <Button title="Geografia" onPress={() => {
+                  this.props.navigation.navigate('Teachers', {
+                    itemId: 4,
+                  });
+                }}/>/>
+                </View>                  
+                <View style={{marginBottom:5, width:200}}>
+                  <Button title="Historia" onPress={() => {
+                  this.props.navigation.navigate('Teachers', {
+                    itemId: 5,
+                  });
+                }}/>/>
+                </View>                  
+                <View style={{marginBottom:5, width:200}}>
+                  <Button title="Matematica"  onPress={() => this.props.navigation.navigate("Agenda")}/>
+                </View>                  
+                <View style={{marginBottom:5 ,width:200}}>
+                  <Button title="Portugues" onPress={() => {
+                  this.props.navigation.navigate('Teachers', {
+                    itemId: 6,
+                  });
+                }}/> />
+                </View>                  
+                <View style={{marginBottom:5, width:200}}>
+                  <Button title="Quimica" onPress={() => {
+                  this.props.navigation.navigate('Teachers', {
+                    itemId: 7,
+                  });
+                }}/>/>
+                </View>
+                <View style={{marginBottom:5, width:200}}>
+                  <Button title="Redacao" onPress={() => {
+                  this.props.navigation.navigate('Teachers', {
+                    itemId: 8,
+                  });
+                }}/>/>
+                </View>
 
-        </ScrollView>
+                </ScrollView>
+  </Row> 
+  <Row size={12}>
+    <Col sm={4} md={4} lg={3}>
+            <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate("Profile")} > 
+            
+            <Image style={{width:40,height:40,marginLeft:40}} source={require('./assets/imgs/icon.png')}/>
+            
+          </TouchableWithoutFeedback>
+    </Col>
+    <Col sm={4} md={4} lg={3}>
+            <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate("TeachersLiked")} > 
+            
+            <Image style={{width:40,height:40,marginLeft:40}} source={require('./assets/imgs/teachers.png')}/>
+            
+          </TouchableWithoutFeedback>
+    </Col>
+    <Col sm={4} md={4} lg={3}>
+            <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate("Credit")} > 
+            
+            <Image style={{width:40,height:40,marginLeft:40}} source={require('./assets/imgs/credit.png')}/>
+            
+          </TouchableWithoutFeedback>
+    </Col>
+  </Row> 
+</View>
+      
+       
+
+      // <ScrollView style={styles.segundaTela}>
+      //  <View style={{ width:300,height:300,justifyContent: 'center',
+      // alignItems:'center'}}>
+      //     <Text>Aluno</Text>
+         
+        
+      //     <Text style={{width:180,height:30}} >  Qual materia gostaria de estudar hoje </Text>
+      //     </View>
+      //           <View style={{marginBottom:5, width:200,justifyContent: 'center',
+      // alignItems:'center'}}>
+      //             <Button title="Biologia" />
+      //           </View>
+      //           <View style={{marginBottom:5, width:200}}>
+      //             <Button title="Filosofia"/>
+      //           </View>                  
+      //           <View style={{marginBottom:5, width:200}}>
+      //             <Button title="Fisica" />
+      //           </View>                  
+      //           <View style={{marginBottom:5, width:200}}>
+      //             <Button title="Geografia" />
+      //           </View>                  
+      //           <View style={{marginBottom:5, width:200}}>
+      //             <Button title="Historia" />
+      //           </View>                  
+      //           <View style={{marginBottom:5, width:200}}>
+      //             <Button title="Matematica"  onPress={() => this.props.navigation.navigate("Agenda")}/>
+      //           </View>                  
+      //           <View style={{marginBottom:5 ,width:200}}>
+      //             <Button title="Portugues"  />
+      //           </View>                  
+      //           <View style={{marginBottom:5, width:200}}>
+      //             <Button title="Quimica" />
+      //           </View>
+      //           <View style={{marginBottom:5, width:200}}>
+      //             <Button title="Redacao"/>
+      //           </View>
+ 
+      //   </ScrollView>
+
               )
   }
   }
 
   class TeachersScreen extends React.Component {
     render(){
+      const itemId = navigation.getParam('itemId', 'NO-ID');
+      if(navigation.state.params.itemId==1){
       return (
          <ScrollView style={styles.container}>
 
@@ -71,6 +221,12 @@
 
          </ScrollView>
       )
+    }
+    else {
+      <View>
+      alert('Aqui');
+      </View>
+    }
     }
   }
 
@@ -116,6 +272,44 @@
 }
 }
 
+class ProfileScreen extends React.Component{
+  render(){
+    return (
+
+  <Button title="Marcar aula"/>
+
+
+
+    )
+  }
+}
+
+class TeachersLikedScreen extends React.Component{
+  render(){
+    return (
+
+
+<Button title="Marcar aula"/>
+
+
+    )
+  }
+}
+
+
+
+class CreditScreen extends React.Component{
+  render(){
+    return (
+
+<Button title="Marcar aula"/>
+
+
+
+    )
+  }
+}
+
 
 
 
@@ -123,11 +317,23 @@
     container: {
       justifyContent: 'center',
       alignItems:'center', 
+      marginBottom: 10,
       borderColor: '#d6d7da',
       backgroundColor: '#008080'
           },
       img:{
-        height:'25%'
+        alignItems: 'center',
+        justifyContent: 'center'
+      },
+      buttonContainer: {
+          margin: 10
+      },
+      segundaTela:{
+
+      borderColor: '#d6d7da',
+      backgroundColor: '#008080',
+      flex:1,
+      height:300
       }
 
       });
@@ -139,7 +345,10 @@
       StudentOptions: StudentOptionsScreen,
       Teachers : TeachersScreen,
       Professor: ProfessorScreen,
-      Agenda: AgendaScreen
+      Agenda: AgendaScreen,
+      Profile: ProfileScreen,
+      TeachersLiked: TeachersLikedScreen,
+      Credit: CreditScreen
     },
     {
       initialRouteName: 'Home',

@@ -17,6 +17,7 @@
     "react-dom": "^16.6.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-30.0.0.tar.gz",
     "react-native-calendars": "^1.21.0",
+    "react-native-flexbox-grid": "^0.3.2",
     "react-native-paper": "^2.1.3",
     "react-navigation": "^2.18.2",
     "react-navigation-material-bottom-tabs": "^0.4.0"
