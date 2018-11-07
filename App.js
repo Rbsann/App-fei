@@ -1,10 +1,20 @@
 import React , {Component} from 'react';
-import { StyleSheet, View ,AppRegistry, TextInput,ScrollView,Button,Image,TouchableOpacity,TouchableWithoutFeedback ,Alert} from 'react-native';
+import { StyleSheet, View ,ListView,AppRegistry, TextInput,ScrollView,Button,Image,TouchableOpacity,TouchableWithoutFeedback ,Alert} from 'react-native';
 import { Container, Header, Content, Footer, FooterTab, Text } from 'native-base';
 import { createStackNavigator } from 'react-navigation'; // Version can be specified in package.json
 import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 import {Column as Col, Row} from 'react-native-flexbox-grid';
+import { LinearGradient } from 'expo';
+import {LocaleConfig} from 'react-native-calendars';
 
+LocaleConfig.locales['pt'] = {
+  monthNames: ['Janeiro','Fevereiro','MArço','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+  monthNamesShort: ['Jan.','Fev.','Mar','Abr','Mai','Jun','Jul.','Ago','Sept.','Oct.','Nov.','Déc.'],
+  dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sabado'],
+  dayNamesShort: ['Dom.','Seg.','Ter.','Qua.','Qui.','Sex.','Sab.']
+};
+
+LocaleConfig.defaultLocale = 'pt';
 
 
 
@@ -38,16 +48,17 @@ class HomeScreen extends React.Component {
   render() {
     return (
 
-      <ScrollView style={styles.container}>
+      <ScrollView endFillColor='transparent' >
+      <LinearGradient colors={['#9d50bb','#6e48aa']}  style={{ padding: 15, alignItems: 'center', borderRadius: 5 }}>
       <Image style={{width:200,height:200,marginBottom:100}} source={require('./assets/imgs/sum.png')} />
-      <TextInput placeholder='Usuario' onChangeText = {this.handleUsuario}/>
-      <TextInput placeholder='Senha' style={{marginBottom:30}} onChangeText = {this.handleSenha}/>
+      <TextInput style={{width:200}} placeholder='Usuario' onChangeText = {this.handleUsuario}/>
+      <TextInput placeholder='Senha' style={{marginBottom:30, width:200}} onChangeText = {this.handleSenha}/>
       <Button
       title="Login"
       onPress={this._onPressLogin}
       />
 
-
+      </LinearGradient>
       </ScrollView>
 
     )
@@ -58,7 +69,8 @@ class StudentOptionsScreen extends React.Component {
   render(){
     return (
 
-      <View style={styles.segundaTela}>
+      <View contentContainerStyle={styles.segundaTela}>
+      <LinearGradient colors={['#9d50bb','#6e48aa']}  style={{ padding: 15, alignItems: 'center', borderRadius: 5 }}>
       <Row size={12}>
       <Col sm={6} md={4} lg={3}>
       <Image style={{width:50,height:50, marginBottom:20}} source={require('./assets/imgs/Matematica/fermat.png')} />
@@ -71,7 +83,7 @@ class StudentOptionsScreen extends React.Component {
       <Text style={{marginBottom:20}}>  Aluno: Qual materia gostaria de estudar hoje </Text>
       </Row>
       <Row size={12} style={{alignItems:"center",justifyContent:'center'}}>
-      <ScrollView style={styles.container}>
+      <ScrollView contentContainerStyle={styles.container}>
 
       <View style={{marginBottom:5, width:200}}>
       <Button title="Biologia" onPress={() => {
@@ -141,7 +153,7 @@ class StudentOptionsScreen extends React.Component {
       </Row>
       <Row size={12}>
       <Col sm={4} md={4} lg={3}>
-      <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate("Profile")} >
+      <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate("Schedule")} >
 
       <Image style={{width:40,height:40,marginLeft:40}} source={require('./assets/imgs/icon.png')}/>
 
@@ -150,18 +162,19 @@ class StudentOptionsScreen extends React.Component {
       <Col sm={4} md={4} lg={3}>
       <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate("TeachersLiked")} >
 
-      <Image style={{width:40,height:40,marginLeft:40}} source={require('./assets/imgs/teachers.png')}/>
+      <Image style={{width:40,height:40,marginLeft:40}} source={require('./assets/imgs/teacher.png')}/>
 
       </TouchableWithoutFeedback>
       </Col>
       <Col sm={4} md={4} lg={3}>
       <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate("Credit")} >
 
-      <Image style={{width:40,height:40,marginLeft:40}} source={require('./assets/imgs/credit.png')}/>
+      <Image style={{width:40,height:40,marginLeft:40}} source={require('./assets/imgs/wallet.jpg')}/>
 
       </TouchableWithoutFeedback>
       </Col>
       </Row>
+      </LinearGradient>
       </View>
 
 
@@ -178,7 +191,7 @@ class TeachersScreen extends React.Component {
     const itemId = navigation.getParam('itemId', 'NO-ID');
     if(itemId==1){
       return (
-        <View style={styles.Teachers}>
+        <View contentContainerStyle={styles.Teachers}>
           <Row size={15} style={{marginLeft:20,marginVertical:50}}>
           <Col sm={6} md={4} lg={3}>
            <View style={{flexGrow: 1, justifyContent:'center', alignItems: 'center'}}>
@@ -218,7 +231,7 @@ class TeachersScreen extends React.Component {
       )
     }else if(itemId==2){
       return (
-        <View style={styles.Teachers}>
+        <View contentContainerStyle={styles.Teachers}>
           <Row size={15} style={{marginLeft:20,marginVertical:50}}>
           <Col sm={6} md={4} lg={3}>
            <View style={{flexGrow: 1, justifyContent:'center', alignItems: 'center'}}>
@@ -258,7 +271,7 @@ class TeachersScreen extends React.Component {
       )
     }else if(itemId==3){
       return (
-        <View style={styles.Teachers}>
+        <View contentContainerStyle={styles.Teachers}>
           <Row size={15} style={{marginLeft:20,marginVertical:50}}>
           <Col sm={6} md={4} lg={3}>
            <View style={{flexGrow: 1, justifyContent:'center', alignItems: 'center'}}>
@@ -298,7 +311,7 @@ class TeachersScreen extends React.Component {
       )
     }else if(itemId==4){
       return (
-        <View style={styles.Teachers}>
+        <View contentContainerStyle={styles.Teachers}>
           <Row size={15} style={{marginLeft:20,marginVertical:50}}>
           <Col sm={6} md={4} lg={3}>
            <View style={{flexGrow: 1, justifyContent:'center', alignItems: 'center'}}>
@@ -338,7 +351,7 @@ class TeachersScreen extends React.Component {
       )
     }else if(itemId==5){
       return (
-        <View style={styles.Teachers}>
+        <View contentContainerStyle={styles.Teachers}>
           <Row size={15} style={{marginLeft:20,marginVertical:50}}>
           <Col sm={6} md={4} lg={3}>
            <View style={{flexGrow: 1, justifyContent:'center', alignItems: 'center'}}>
@@ -378,7 +391,7 @@ class TeachersScreen extends React.Component {
       )
     }else if(itemId==6){
       return (
-        <View style={styles.Teachers}>
+        <View contentContainerStyle={styles.Teachers}>
           <Row size={15} style={{marginLeft:20,marginVertical:50}}>
           <Col sm={6} md={4} lg={3}>
            <View style={{flexGrow: 1, justifyContent:'center', alignItems: 'center'}}>
@@ -418,7 +431,7 @@ class TeachersScreen extends React.Component {
       )
     }else if(itemId==7){
       return (
-        <View style={styles.Teachers}>
+        <View contentContainerStyle={styles.Teachers}>
           <Row size={15} style={{marginLeft:20,marginVertical:50}}>
           <Col sm={6} md={4} lg={3}>
            <View style={{flexGrow: 1, justifyContent:'center', alignItems: 'center'}}>
@@ -458,7 +471,7 @@ class TeachersScreen extends React.Component {
       )
     }else if(itemId==8){
       return (
-        <View style={styles.Teachers}>
+        <View contentContainerStyle={styles.Teachers}>
           <Row size={15} style={{marginLeft:20,marginVertical:50}}>
           <Col sm={6} md={4} lg={3}>
            <View style={{flexGrow: 1, justifyContent:'center', alignItems: 'center'}}>
@@ -498,7 +511,7 @@ class TeachersScreen extends React.Component {
       )
     }else if(itemId==9){
       return (
-        <View style={styles.Teachers}>
+        <View contentContainerStyle={styles.Teachers}>
           <Row size={15} style={{marginLeft:20,marginVertical:50}}>
           <Col sm={6} md={4} lg={3}>
            <View style={{flexGrow: 1, justifyContent:'center', alignItems: 'center'}}>
@@ -545,11 +558,13 @@ class TeachersScreen extends React.Component {
 class ProfessorScreen extends React.Component {
   render(){
     return (
-      <ScrollView style={styles.container}>
+      <ScrollView contentContainerStyle={styles.container}>
 
       <Image style={{width:100,height:100}} source={require('./assets/imgs/Matematica/galois.jpg')}/>
-      <Button title="Dar like"/>
-      <Button title="Marcar aula"/>
+      <Button title="Dar like" onPress={() => 
+        this.props.navigation.navigate('TeachersLiked')}/>
+      <Button title="Marcar aula" onPress={() => 
+        this.props.navigation.navigate('Agenda')}/>
 
       </ScrollView>
 
@@ -563,37 +578,46 @@ class AgendaScreen extends React.Component{
 
   render() {
     return (
-      <Agenda
-
-      //markingType={'interactive'}
-      markedDates={{
-        '2017-05-08': [{textColor: '#666'}],
-        '2017-05-09': [{textColor: '#666'}],
-        '2017-05-14': [{startingDay: true, color: 'blue'}, {endingDay: true, color: 'blue'}],
-        '2017-05-21': [{startingDay: true, color: 'blue'}],
-        '2017-05-22': [{endingDay: true, color: 'gray'}],
-        '2017-05-24': [{startingDay: true, color: 'gray'}],
-        '2017-05-25': [{color: 'gray'}],
-        '2017-05-26': [{endingDay: true, color: 'gray'}]}}
-        monthFormat={'yyyy'}
-        theme={{calendarBackground: 'red', agendaKnobColor: 'green'}}
-        renderDay={(day, item) => (<Text>{day ? day.day: 'item'}</Text>)}
-        />
+      <Calendar
+  // Initially visible month. Default = Date()
+  current={'2018-11-10'}
+  // Minimum date that can be selected, dates before minDate will be grayed out. Default = undefined
+  minDate={'2015-05-10'}
+  // Maximum date that can be selected, dates after maxDate will be grayed out. Default = undefined
+  maxDate={'2021-05-30'}
+  // Handler which gets executed on day press. Default = undefined
+  onDayPress={(day) => {console.log('selected day', day)}}
+  // Handler which gets executed on day long press. Default = undefined
+  onDayLongPress={(day) => {console.log('selected day', day)}}
+  // Month format in calendar title. Formatting values: http://arshaw.com/xdate/#Formatting
+  monthFormat={'yyyy MM'}
+  // Handler which gets executed when visible month changes in calendar. Default = undefined
+  onMonthChange={(month) => {console.log('month changed', month)}}
+  // Hide month navigation arrows. Default = false
+  hideArrows={true}
+  // Replace default arrows with custom ones (direction can be 'left' or 'right')
+  renderArrow={(direction) => (<Arrow />)}
+  // Do not show days of other months in month page. Default = false
+  hideExtraDays={true}
+  // If hideArrows=false and hideExtraDays=false do not switch month when tapping on greyed out
+  // day from another month that is visible in calendar page. Default = false
+  disableMonthChange={true}
+  // If firstDay=1 week starts from Monday. Note that dayNames and dayNamesShort should still start from Sunday.
+  firstDay={1}
+  // Hide day names. Default = false
+  hideDayNames={true}
+  // Show week numbers to the left. Default = false
+  showWeekNumbers={true}
+  // Handler which gets executed when press arrow icon left. It receive a callback can go back month
+  onPressArrowLeft={substractMonth => substractMonth()}
+  // Handler which gets executed when press arrow icon left. It receive a callback can go next month
+  onPressArrowRight={addMonth => addMonth()}
+/>
       )
     }
   }
 
-  class ProfileScreen extends React.Component{
-    render(){
-      return (
 
-        <Button title="Marcar aula"/>
-
-
-
-      )
-    }
-  }
 
   class TeachersLikedScreen extends React.Component{
     render(){
@@ -687,8 +711,7 @@ class AgendaScreen extends React.Component{
       justifyContent: 'center',
       alignItems:'center',
       marginBottom: 10,
-      borderColor: '#d6d7da',
-      backgroundColor: '#008080'
+      borderColor: '#d6d7da'
     },
     img:{
       alignItems: 'center',
@@ -727,8 +750,7 @@ class AgendaScreen extends React.Component{
       StudentOptions: StudentOptionsScreen,
       Teachers : TeachersScreen,
       Professor: ProfessorScreen,
-      Agenda: AgendaScreen,
-      Profile: ProfileScreen,
+      Schedule: AgendaScreen,
       TeachersLiked: TeachersLikedScreen,
       Credit: CreditScreen
     },
